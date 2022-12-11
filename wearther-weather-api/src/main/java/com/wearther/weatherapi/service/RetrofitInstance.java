@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public  final class RetrofitInstance {
 
     private static Retrofit retrofit_instance;
-    private static final  String BASE_URL="";
+    private static final  String BASE_URL="https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/";
     private static WeatherAPI api;
     static{
         if(retrofit_instance==null)
@@ -21,5 +21,4 @@ public  final class RetrofitInstance {
         api=retrofit_instance.create(WeatherAPI.class);
         return api;
     }
-
 }

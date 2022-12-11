@@ -9,11 +9,15 @@ import java.util.List;
 @Getter
 public class WeatherConditionAPIResponse {
 
-    @SerializedName("list")
+    @SerializedName("resolvedAddress")
     @Expose
-    private List<Weathers> weathersList;
+    private String resolvedAddress;
 
-    @SerializedName("city")
+    @SerializedName("days")
     @Expose
-    private CityInformation cityInformation;
+    private List<Day> days;
+
+    @SerializedName("currentConditions")
+    @Expose
+    private CurrentCondition currentConditions;
 }

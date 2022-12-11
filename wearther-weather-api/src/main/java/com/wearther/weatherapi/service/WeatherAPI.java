@@ -1,20 +1,17 @@
 package com.wearther.weatherapi.service;
 
-import com.wearther.weatherapi.domain.dto.api_response.CityAPIResponse;
 import com.wearther.weatherapi.domain.dto.api_response.WeatherConditionAPIResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 import java.util.List;
 
 public interface WeatherAPI {
-
-    @GET("direct?")
-    Call<List<CityAPIResponse>> getCityList(@Query("q") String city, @Query("appid") String APIKey);
-    @GET("forecast?")
-    Call<WeatherConditionAPIResponse> getWeather(@Query("lat") String lat,
-                                                       @Query("lon") String lon,
-                                                       @Query("units") String units,
-                                                       @Query("appid") String APIKey);
+    @GET("timeline/{city}?")
+    Call<WeatherConditionAPIResponse> getWeather(@Path(value = "city") String city,
+                                                 @Query(value = "unitGroup") String unitGroup,
+                                                 @Query(value = "key") String APIKey,
+                                                 @Query(value = "contentType") String contentType);
 }

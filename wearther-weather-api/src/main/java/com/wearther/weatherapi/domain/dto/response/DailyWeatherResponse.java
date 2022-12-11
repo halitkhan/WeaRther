@@ -1,18 +1,10 @@
-package com.wearther.weatherapi.domain.model;
+package com.wearther.weatherapi.domain.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.wearther.weatherapi.domain.model.WeekDay;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class WeatherCondition {
-
+public class DailyWeatherResponse {
     private String resolvedAddress;
     private float temp;
     private String conditions;
@@ -25,6 +17,5 @@ public class WeatherCondition {
     private String sunrise;
     private String sunset;
     private String icon;
-    private List<WeekDay> days;
-
+    private List<DailyWeekDayResponse> days;
 }

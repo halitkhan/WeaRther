@@ -1,4 +1,4 @@
-package com.wearther.weatherapi.domain.model;
+package com.wearther.weartherapi.dto.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class WeatherCondition {
-
     private String resolvedAddress;
     private float temp;
     private String conditions;
@@ -26,5 +25,4 @@ public class WeatherCondition {
     private String sunset;
     private String icon;
     private List<WeekDay> days;
-
 }
