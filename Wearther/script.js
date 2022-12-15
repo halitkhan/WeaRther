@@ -1,12 +1,13 @@
 const temp = document.getElementById("temp"),
-    date = document.getElementById("date-time");
+    date = document.getElementById("date-time"),
     currentLocation = document.getElementById("location"),
     condition = document.getElementById("condition"),
     rain = document.getElementById("rain"),
     mainIcon = document.getElementById("icon"),
-    uvIndex = document.querySelector(".uv-index"),
-    uvText = document.querySelector(".uv-text"),
+    feelsLike = document.querySelector(".feels-like"),
+    feelsLikeStatus = document.querySelector(".feels-like-status"),
     windSpeed = document.querySelector(".wind-speed"),
+    windStatus = document.querySelector(".wind-status"),
     sunRise = document.querySelector(".sun-rise"),
     sunSet = document.querySelector(".sun-set"),
     humidity = document.querySelector(".humidity"),
@@ -74,7 +75,7 @@ function getPublicIp() {
     .then((data) => {
         console.log(data);
         currentCity = data.city;
-        //getWeatherData(data.city, currentUnit, hourlyorWeek);
+    getWeatherData("istanbul", currentUnit, hourlyorWeek);
 });
 
 }
@@ -84,32 +85,24 @@ getPublicIp();
 
 async function getWeatherData(city, unit, hourlyorWeek) {
     console.log(city);
-    const response = await fetch(
-        `http://localhost:8080/weather-condition/{city}/{unitGroup}`,
+    console.log(unit);
+    await fetch(`http://localhost:8080/weather-condition/${city}/${unit}`, 
         {
-        method: "GET",
+            method: "GET",
     }
     )
-
-    /*.then((response) => response.json())
-    .then((data) =>*/
-    
-    const data = await response.json();
-    ((data) => {
-        
-        if (unit === "metric") {
-            temp.innerText = data.temp;
-        } 
-        else {
-            temp.innerText = celciusToFahrenheit(data.temp);
-        }
-        
+    .then((response) => response.json())
+    .then((data)  => {
+        console.log(data);
+        console.log(data.resolvedAddress);
+        temp.innerText = data.temp;
         currentLocation.innerText = data.resolvedAddress;
         condition.innerText = data.conditions;
-        rain.innerText = "Perc -" + data.precip + "%";
-        uvIndex.innerText = data.uvindex;
-        measureUvIndex(data.uvindex);
-        windSpeed.innerText = data.windspeed;
+        rain.innerText = "Perc -" + data.rain + "%";
+        feelsLike.innerText = data.feelsLike;
+        updateFeelsLikeStatus(data.feelsLike);
+        windSpeed.innerText = data.windSpeed;
+        updateWindStatus(data.windSpeed);
         humidity.innerText = data.humidity + "%";
         updateHumidityStatus(data.humidity);
         visibility.innerText = data.visibility;
@@ -128,27 +121,35 @@ async function getWeatherData(city, unit, hourlyorWeek) {
             updateForecast(data.days, unit, "week");
         }
     })
-    .catch((err) => {
-        alert("City not found in our database");
-    });
+    //.catch((err) => {
+    //    alert("City not found in our database");
+    //});
 }
 
-function measureUvIndex(uvIndex) {
-    
-    if (uvIndex <= 2) {
-        uvText.innerText = "Low";
+function updateFeelsLikeStatus(feelsLike) {
+    if (feelsLike < 0) {
+        feelsLikeStatus.innerText = "Freezing";
     } 
-    else if (uvIndex <= 5) {
-        uvText.innerText = "Moderate";
+    else if (feelsLike <= 5) {
+        feelsLikeStatus.innerText = "Cold";
     } 
-    else if (uvIndex <= 7) {
-        uvText.innerText = "High";
+    else if (feelsLike <= 15) {
+        feelsLikeStatus.innerText = "Cool";
     } 
-    else if (uvIndex <= 10) {
-        uvText.innerText = "Very High";
+    else if (feelsLike <= 25) {
+        feelsLikeStatus.innerText = "Warm";
     } 
+    else if (feelsLike <= 27) {
+        feelsLikeStatus.innerText = "Normal";
+    } 
+    else if (feelsLike <= 37) {
+        feelsLikeStatus.innerText = "Hot";
+    }
+    else if (feelsLike <= 47) {
+        feelsLikeStatus.innerText = "Extremely Hot";
+    }  
     else {
-        uvText.innerText = "Extreme";
+        feelsLikeStatus.innerText = "Hazardous";
     }
 }
 
@@ -190,6 +191,51 @@ function updateVisibilityStatus(visibility) {
     } 
     else {
         visibilityStatus.innerText = "Very Clear Air";
+    }
+}
+
+function updateWindStatus(windSpeed){
+    if (windSpeed < 1) {
+        windStatus.innerText = "Calm";
+    }
+    else if (windSpeed <= 3) {
+        windStatus.innerText = "Light Wind"
+    }
+    else if (windSpeed <= 7) {
+        windStatus.innerText = "Cat Paw"
+    }
+    else if (windSpeed <= 12) {
+        windStatus.innerText = "Light Breeze"
+    }
+    else if (windSpeed <= 18) {
+        windStatus.innerText = "Gentle Breeze"
+    }
+    else if (windSpeed <= 24) {
+        windStatus.innerText = "Fresh Breeze"
+    }
+    else if (windSpeed <= 31) {
+        windStatus.innerText = "Strong Breeze"
+    }
+    else if (windSpeed <= 38) {
+        windStatus.innerText = "Moderate Gale"
+    }
+    else if (windSpeed <= 46) {
+        windStatus.innerText = "Fresh Gale"
+    }
+    else if (windSpeed <= 54) {
+        windStatus.innerText = "Strong Gale"
+    }
+    else if (windSpeed <= 63) {
+        windStatus.innerText = "Whole Gale";
+    }
+    else if (windSpeed <= 73) {
+        windStatus.innerText = "Storm";
+    }
+    else if (windSpeed > 73) {
+        windStatus.innerText = "Hurricane";
+    }
+    else{
+        windStatus = "Wrong Data!";
     }
 }
 
@@ -358,7 +404,13 @@ function changeUnit(unit) {
     {
         //change unit on document
         tempUnit.forEach((elem) => {
-        elem.innerText = `°${unit.toUpperCase()}`;
+            if(unit === "metric"){
+                elem.innerText = `°C`;
+            }
+            else{
+                elem.innerText = `°F`;
+            }
+        
         });
         if (unit === "metric") {
         celciusBtn.classList.add("active");

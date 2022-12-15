@@ -14,8 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 public class WeekDay {
 
-    private Date datetime;
+    private String datetime;
     private float temp;
+    private float tempMax;
+    private float tempMin;
+    private float feelsLike;
     private  String icon;
     private List<DayHour> hours;
 }

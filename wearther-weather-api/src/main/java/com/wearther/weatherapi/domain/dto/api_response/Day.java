@@ -15,6 +15,15 @@ public class Day {
     @SerializedName("temp")
     @Expose
     private float temp;
+    @SerializedName("tempmax")
+    @Expose
+    private float tempMax;
+    @SerializedName("tempmin")
+    @Expose
+    private float tempMin;
+    @SerializedName("feelslike")
+    @Expose
+    private float feelsLike;
     @SerializedName("icon")
     @Expose
     private String icon;
