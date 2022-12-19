@@ -7,8 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public  final class RetrofitInstance {
 
     private static Retrofit retrofit_instance;
-    private static final  String BASE_URL="https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/";
-    private static WeatherAPI api;
+    private static WeatherAPI api;    private static final  String BASE_URL="https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/";
+
     static{
         if(retrofit_instance==null)
         retrofit_instance=new Retrofit.Builder().baseUrl(BASE_URL)

@@ -10,6 +10,10 @@ public class CurrentCondition {
     @SerializedName("temp")
     @Expose
     private float temp;
+    @SerializedName("feelslike")
+    @Expose
+    private float feelsLike;
+
     @SerializedName("conditions")
     @Expose
     private String conditions;

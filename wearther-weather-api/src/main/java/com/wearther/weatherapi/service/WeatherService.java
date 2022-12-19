@@ -27,18 +27,20 @@ public class WeatherService {
         for(Day day : weatherConditionAPIResponse.getDays()){
             List<DayHour> dayHourList = new ArrayList<>();
             for (Hour hour : day.getHours()){
-                SimpleDateFormat sfHour = new SimpleDateFormat("hh:mm:ss");
                 DayHour dayHour = new DayHour(
-                        sfHour.parse(hour.getDatetime()),
+                        hour.getDatetime(),
                         hour.getTemp(),
+                        hour.getFeelsLike(),
                         hour.getIcon()
                 );
                 dayHourList.add(dayHour);
             }
-            SimpleDateFormat sfDay = new SimpleDateFormat("yyyy-mm-dd");
             WeekDay weekDay = new WeekDay(
-                    sfDay.parse(day.getDatetime()),
+                    day.getDatetime(),
                     day.getTemp(),
+                    day.getTempMax(),
+                    day.getTempMin(),
+                    day.getFeelsLike(),
                     day.getIcon(),
                     dayHourList
             );
@@ -48,6 +50,7 @@ public class WeatherService {
         WeatherCondition weatherCondition = new WeatherCondition(
                 weatherConditionAPIResponse.getResolvedAddress(),
                 weatherConditionAPIResponse.getCurrentConditions().getTemp(),
+                weatherConditionAPIResponse.getCurrentConditions().getFeelsLike(),
                 weatherConditionAPIResponse.getCurrentConditions().getConditions(),
                 weatherConditionAPIResponse.getCurrentConditions().getRain(),
                 weatherConditionAPIResponse.getCurrentConditions().getUvindex(),

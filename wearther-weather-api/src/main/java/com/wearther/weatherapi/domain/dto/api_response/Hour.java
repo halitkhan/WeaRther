@@ -12,6 +12,9 @@ public class Hour {
     @SerializedName("temp")
     @Expose
     private float temp;
+    @SerializedName("feelslike")
+    @Expose
+    private float feelsLike;
     @SerializedName("icon")
     @Expose
     private String icon;

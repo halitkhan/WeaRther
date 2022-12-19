@@ -15,12 +15,13 @@ public class WeatherCondition {
 
     private String resolvedAddress;
     private float temp;
+    private float feelsLike;
     private String conditions;
     private float rain;
     private float uvindex;
     private float windSpeed;
     private float humidity;
-    private float visibilty;
+    private float visibility;
     private float winddir;
     private String sunrise;
     private String sunset;

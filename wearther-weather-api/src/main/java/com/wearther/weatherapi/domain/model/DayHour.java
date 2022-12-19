@@ -12,7 +12,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DayHour {
-    private Date datetime;
+    private String datetime;
     private float temp;
+    private float feelsLike;
     private String icon;
 }
