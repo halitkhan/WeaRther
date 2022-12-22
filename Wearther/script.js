@@ -74,10 +74,10 @@ function getPublicIp() {
     .then((response) => response.json())
     .then((data) => {
         console.log(data);
-        currentCity = data.city;
-    getWeatherData("istanbul", currentUnit, hourlyorWeek);
+        currentCity = "istanbul";
+        getWeatherData(currentCity, currentUnit, hourlyorWeek);
 });
-
+    
 }
 getPublicIp();
 
@@ -86,16 +86,20 @@ getPublicIp();
 async function getWeatherData(city, unit, hourlyorWeek) {
     console.log(city);
     console.log(unit);
-    await fetch(`http://localhost:8080/weather-condition/${city}/${unit}`, 
+    await fetch(`http://localhost:8080/weather-condition/${city}/metric`,
         {
             method: "GET",
     }
     )
     .then((response) => response.json())
     .then((data)  => {
-        console.log(data);
-        console.log(data.resolvedAddress);
-        temp.innerText = data.temp;
+
+        if (unit === "metric") {
+            temp.innerText = data.temp;
+        } else {
+            temp.innerText = celciusToFahrenheit(data.temp);
+        }
+
         currentLocation.innerText = data.resolvedAddress;
         condition.innerText = data.conditions;
         rain.innerText = "Perc -" + data.rain + "%";
@@ -125,6 +129,10 @@ async function getWeatherData(city, unit, hourlyorWeek) {
     //    alert("City not found in our database");
     //});
 }
+
+function celciusToFahrenheit(temp) {
+    return ((temp * 9) / 5 + 32).toFixed(1);
+  }
 
 function updateFeelsLikeStatus(feelsLike) {
     if (feelsLike < 0) {
@@ -331,7 +339,7 @@ function updateForecast(data, unit, type) {
     }
     let dayTemp = data[day].temp;
     if (unit === "us") {
-        dayTemp = (data[day].temp);
+        dayTemp = celciusToFahrenheit(data[day].temp);
     }
     let iconCondition = data[day].icon;
     let iconSrc = getIcon(iconCondition);
