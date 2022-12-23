@@ -1,6 +1,7 @@
-package com.wearther.wearapi.domain.enums;
+package com.wearther.weartherapi.dto.enums;
 
 public enum BodyPart {
+
     HEAD,
     JACKET,
     TOP,

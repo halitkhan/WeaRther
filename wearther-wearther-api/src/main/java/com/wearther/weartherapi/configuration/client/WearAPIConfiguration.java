@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-public class WeatherAPIConfiguration {
+public class WearAPIConfiguration {
 
     @Bean
-    public WebClient weatherApiClient(){
-        return WebClient.create("http://localhost:8081/weather-condition");
+    public WebClient wearApiClient(){
+        return WebClient.create("http://localhost:8082/clothes");
     }
 }
