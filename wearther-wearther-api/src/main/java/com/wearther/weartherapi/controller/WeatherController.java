@@ -11,7 +11,7 @@ import java.io.IOException;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/weather-condition")
-public class WeartherController {
+public class WeatherController {
 
     @Autowired
     WeartherService service;
