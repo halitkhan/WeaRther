@@ -148,7 +148,14 @@ async function getWeatherData(city, unit, hourlyorWeek) {
 
 async function getClothes() {
 
-    headImg.src="", acsImg.src="", jacketImg.src="", topImg.src="", handImg.src="", bottomImg.src="", footImg.src="";
+    headImg.src="images/beyaz.jpg", 
+    acsImg.src="images/beyaz.jpg", 
+    jacketImg.src="images/beyaz.jpg", 
+    topImg.src="images/beyaz.jpg", 
+    handImg.src="images/beyaz.jpg", 
+    bottomImg.src="images/beyaz.jpg", 
+    footImg.src="images/beyaz.jpg";
+    
     //console.log(feelsLikeStatus.innerHTML);
     genderRadio = document.querySelector('input[name="gender"]:checked');
     console.log(genderRadio.value);
