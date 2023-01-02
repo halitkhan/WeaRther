@@ -17,13 +17,17 @@ const temp = document.getElementById("temp"),
     airQuality = document.querySelector(".air-quality"),
     airQualityStatus = document.querySelector(".air-quality-status"),
     weatherCards = document.querySelector("#weather-cards"),
+    wearCards = document.querySelector("#wear-cards"),
     celciusBtn = document.querySelector(".celcius"),
     fahrenheitBtn = document.querySelector(".fahrenheit"),
     hourlyBtn = document.querySelector(".hourly"),
     weekBtn = document.querySelector(".week"),
+    wearBtn = document.querySelector(".wear"),
     tempUnit = document.querySelectorAll(".temp-unit"),
     searchForm = document.querySelector("#search"),
-    search = document.querySelector("#query");
+    search = document.querySelector("#query"),
+    highlights = document.querySelector(".highlights"),
+    form = document.querySelector('form');
 
 let currentCity = "";
 let currentUnit = "metric";
@@ -82,7 +86,6 @@ function getPublicIp() {
 getPublicIp();
 
 //function to get weather data
-
 async function getWeatherData(city, unit, hourlyorWeek) {
     console.log(city);
     console.log(unit);
@@ -120,7 +123,10 @@ async function getWeatherData(city, unit, hourlyorWeek) {
         
         if (hourlyorWeek === "hourly") {
             updateForecast(data.days[0].hours, unit, "day");
-        } 
+        }
+        else if (hourlyorWeek === "wear"){
+            updateWearTab(data);
+        }
         else {
             updateForecast(data.days, unit, "week");
         }
@@ -130,10 +136,29 @@ async function getWeatherData(city, unit, hourlyorWeek) {
     //});
 }
 
+async function getClothes(feelslikestatus, gender) {
+
+    await fetch(`http://localhost:8080/clothes/${feelslikestatus}/${gender}`,
+        {
+            method: "GET",
+    }
+    )
+    .then((response) => response.json())
+    .then((data)  => {
+
+        console.log(data);
+    
+        return data;
+        
+    })
+}
+
+//Function celciusToFahrenheit
 function celciusToFahrenheit(temp) {
     return ((temp * 9) / 5 + 32).toFixed(1);
-  }
+}
 
+// FeelsLike Status
 function updateFeelsLikeStatus(feelsLike) {
     if (feelsLike < 0) {
         feelsLikeStatus.innerText = "Freezing";
@@ -161,8 +186,8 @@ function updateFeelsLikeStatus(feelsLike) {
     }
 }
 
+// Humidity Status
 function updateHumidityStatus(humidity) {
-    
     if (humidity <= 30) {
         humidityStatus.innerText = "Low";
     } 
@@ -174,8 +199,8 @@ function updateHumidityStatus(humidity) {
     }
 }
 
+// Visibility Status
 function updateVisibilityStatus(visibility) {
-    
     if (visibility <= 0.3) {
         visibilityStatus.innerText = "Dense Fog";
     } 
@@ -202,6 +227,7 @@ function updateVisibilityStatus(visibility) {
     }
 }
 
+// Wind Status
 function updateWindStatus(windSpeed){
     if (windSpeed < 1) {
         windStatus.innerText = "Calm";
@@ -247,8 +273,8 @@ function updateWindStatus(windSpeed){
     }
 }
 
+// AirQuality Status
 function updateAirQualityStatus(airQuality) {
-    
     if (airQuality <= 50) {
         airQualityStatus.innerText = "Good";
     } 
@@ -269,8 +295,8 @@ function updateAirQualityStatus(airQuality) {
     }
 }
 
+// Icon Condition
 function getIcon(condition) {
-    
     if (condition === "Partly-cloudy-day") {
         return "icons/cloudy.png";
     } 
@@ -300,6 +326,41 @@ function getIcon(condition) {
     }
 }
 
+// Background Image
+function changeBackground(condition) {
+    const body = document.querySelector("body");
+    let bg = "";
+
+    if (condition === "Partly-cloudy-day") {
+    bg = "images/pcd.jpg";
+    } 
+    else if (condition === "partly-cloudy-night") {
+    bg = "images/pcn.jpg";
+    }
+    else if (condition === "clouds") {
+    bg = "images/clds.jpg";
+    }  
+    else if (condition === "rain") {
+    bg = "images/rain.jpg";
+    }
+    else if (condition === "snow"){
+    bg = "images/snow.jpg"
+    }
+    else if (condition === "storm") {
+    bg = "images/storm.jpg";
+    } 
+    else if (condition === "clear-day") {
+    bg = "images/clrday.jpg";
+    } 
+    else if (condition === "clear-night") {
+    bg = "images/clrnight.jpg";
+    } 
+    else {
+    bg = "images/pcd.jpg";
+    }
+    body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${bg})`;
+}
+
 function getDayName(date) {
     
     let day = new Date(date);
@@ -318,6 +379,8 @@ function getDayName(date) {
 function updateForecast(data, unit, type) {
     
     weatherCards.innerHTML = "";
+    wearCards.style.display = "none";
+    highlights.style.display = "block";
 
     let day = 0;
     let numCards = 0;
@@ -363,39 +426,108 @@ function updateForecast(data, unit, type) {
     }
 }
 
-function changeBackground(condition) {
+function updateWearTab(data){
     
-    const body = document.querySelector("body");
-    let bg = "";
-    if (condition === "Partly-cloudy-day") {
-    bg = "images/pcd.jpg";
-    } 
-    else if (condition === "partly-cloudy-night") {
-    bg = "images/pcn.jpg";
-    }
-    else if (condition === "clouds") {
-    bg = "images/clds.jpg";
-    }  
-    else if (condition === "rain") {
-    bg = "images/rain.jpg";
-    }
-    else if (condition === "snow"){
-    bg = "images/snow.jpg"
-    }
-    else if (condition === "storm") {
-    bg = "images/storm.jpg";
-    } 
-    else if (condition === "clear-day") {
-    bg = "images/clrday.jpg";
-    } 
-    else if (condition === "clear-night") {
-    bg = "images/clrnight.jpg";
-    } 
-    else {
-    bg = "images/pcd.jpg";
-    }
-    body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${bg})`;
+    weatherCards.innerHTML = "";
+    wearCards.style.display = "block";
+    highlights.style.display = "none";
+
+    /*let numCards = 7;
+    
+    
+    let card = document.createElement("div");
+    card.classList.add("cards");
+        
+    card.innerHTML = `
+    <div class="wearr" id="wear-cards">
+                <div class="cardss">
+                    <div class="head-card">
+                        <h4 class="box-heading">Head</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="cardss">
+                    <div class="acs-card">
+                        <h4 class="box-heading">Accessory</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="cardss">
+                    <div class="jacket-card">
+                        <h4 class="box-heading">Jacket</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="cardss">
+                    <div class="top-card">
+                        <h4 class="box-heading">Top</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="cardss">
+                    <div class="hand-card">
+                        <h4 class="box-heading">Hand</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="cardss">
+                    <div class="bottom-card">
+                        <h4 class="box-heading">Bottom</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="cardss">
+                    <div class="foot-card">
+                        <h4 class="box-heading">Foot</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <form>
+                    <label>
+                        <input type="radio" name="gender" value="male" checked> Male
+                    </label>
+                    <br>
+                    <label>
+                        <input type="radio" name="gender" value="female"> Female
+                    </label>
+                    <br>
+                </form>                              
+                <div class="btn">
+                    <button class="rndm" onclick="getClothes('Hot','Male')">Change Combine</button>
+                </div>
+                <div class="buy-inf">
+                    <div class="buy-button">
+                        <button class="buy" onclick="openAllUrlsNewTab(data)">Buy Combine</button>
+                    </div>
+                    <div class="price">
+                        <h4>0TL</h4>
+                    </div>
+                </div>
+            </div>
+        `;
+    wearCards.appendChild(card);*/
 }
+
+
+form.addEventListener('change', (event) => {
+    const gender = event.target.value;
+    console.log(`Selected gender: ${gender}`);
+});
+
 
 fahrenheitBtn.addEventListener("click", () => {
     changeUnit("us");
@@ -441,6 +573,9 @@ hourlyBtn.addEventListener("click", () => {
 weekBtn.addEventListener("click", () => {
     changeTimeSpan("week");
 });
+wearBtn.addEventListener("click", () => {
+    changeTimeSpan("wear");
+});
 
 function changeTimeSpan(unit) {
     
@@ -449,9 +584,17 @@ function changeTimeSpan(unit) {
     if (unit === "hourly") {
         hourlyBtn.classList.add("active");
         weekBtn.classList.remove("active");
-    } else {
+        wearBtn.classList.remove("active");
+    } 
+    else if(unit === "week"){
         hourlyBtn.classList.remove("active");
         weekBtn.classList.add("active");
+        wearBtn.classList.remove("active");
+    }
+    else{
+        hourlyBtn.classList.remove("active");
+        weekBtn.classList.remove("active");
+        wearBtn.classList.add("active");
     }
       // update weather on time change
     getWeatherData(currentCity, currentUnit, hourlyorWeek);
