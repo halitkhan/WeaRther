@@ -157,8 +157,9 @@ async function getClothes() {
     footImg.src="images/beyaz.jpg";
     
     //console.log(feelsLikeStatus.innerHTML);
+    //console.log(genderRadio.value);
     genderRadio = document.querySelector('input[name="gender"]:checked');
-    console.log(genderRadio.value);
+    
 
     await fetch(`http://localhost:8080/clothes/${feelsLikeStatus.innerHTML}/${genderRadio.value}`,
         {
@@ -171,7 +172,7 @@ async function getClothes() {
         let sum = 0;
         for(let i=0;i<data.length;i++){
             if(data[i].bodyPart == "HEAD"){
-                headImg = data[i].img;
+                headImg.src = data[i].img;
                 
             }else if(data[i].bodyPart == "ACCESSORY"){
                 acsImg.src = data[i].img;
@@ -179,7 +180,7 @@ async function getClothes() {
             }else if(data[i].bodyPart == "JACKET"){
                 jacketImg.src = data[i].img;
 
-            }else if(data[i].bodyPart == "TOP"){
+            }else if(data[i].bodyPart == "TOP" || data[i].bodyPart == "ONE_PIECE"){
                 topImg.src = data[i].img;
 
             }else if(data[i].bodyPart == "HAND"){
