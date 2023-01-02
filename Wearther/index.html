@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wearther</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</head>
-<body>
 
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wearther</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"
+        integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
     <div class="wrapper">
         <div class="sidebar">
             <div>
                 <form action="" class="search" id="search">
-                    <input type="text" id="query" placeholder="Search..."/>
+                    <input type="text" id="query" placeholder="Search..." />
                     <button>
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
                 </form>
                 <div class="location">
                     <div class="location-icon">
@@ -28,7 +31,7 @@
                     </div>
                 </div>
                 <div class="weather-icon">
-                    <img src="icons/sun.png" alt="" id="icon">
+                    <img src="icons/sun.png" alt="" id="icon" />
                 </div>
                 <div class="temprature">
                     <h1 id="temp">0</h1>
@@ -55,9 +58,10 @@
                 <ul class="options">
                     <button class="hourly">Today</button>
                     <button class="week active">Week</button>
+                    <button class="wear">Wear</button>
                 </ul>
                 <div class="logo">
-                    <img src="/images/logo.svg" alt="">
+                    <img src="/images/logo.svg" alt="" />
                 </div>
                 <ul class="options units">
                     <button class="celcius active">°C</button>
@@ -66,14 +70,94 @@
             </nav>
             <div class="cards" id="weather-cards">
                 <div class="card">
-                <h2 class="day-name">Monday</h2>
-                <div class="card-icon">
-                    <img src="/icons/cloudy.png" alt="">
+                    <h2 class="day-name">Monday</h2>
+                    <div class="card-icon">
+                        <img src="/icons/cloudy.png" alt="" />
+                    </div>
+                    <div class="day-temp">
+                        <h2 class="temp">32</h2>
+                        <span class="temp-unit">°C</span>
+                    </div>
                 </div>
-                <div class="day-temp">
-                    <h2 class="temp">32</h2>
-                    <span class="temp-unit">°C</span>
+            </div>
+            <div class="wearr" id="wear-cards">
+                <div class="cardss">
+                    <div class="head-card">
+                        <h4 class="box-heading">Head</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="" />
+                        </div>
+                    </div>
                 </div>
+                <div class="cardss">
+                    <div class="acs-card">
+                        <h4 class="box-heading">Accessory</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="cardss">
+                    <div class="jacket-card">
+                        <h4 class="box-heading">Jacket</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="cardss">
+                    <div class="top-card">
+                        <h4 class="box-heading">Top</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="cardss">
+                    <div class="hand-card">
+                        <h4 class="box-heading">Hand</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="cardss">
+                    <div class="bottom-card">
+                        <h4 class="box-heading">Bottom</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="cardss">
+                    <div class="foot-card">
+                        <h4 class="box-heading">Foot</h4>
+                        <div class="image-box">
+                            <img src="${data}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="gen">
+                    <label>
+                        <input type="radio" name="gender" value="male" checked>
+                        <span>Male</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" value="female">
+                        <span>Female</span>
+                    </label>
+                    <br>
+                </div>                              
+                <div class="btn">
+                    <button class="rndm" onclick="getClothes('Hot','Male')">Change Combine</button>
+                </div>
+                <div class="buy-inf">
+                    <div class="buy-button">
+                        <button class="buy" onclick="openAllUrlsNewTab(data)">Buy Combine</button>
+                    </div>
+                    <div class="price">
+                        <h4>Total = 0TL</h4>
+                    </div>
                 </div>
             </div>
             <div class="highlights">
@@ -125,7 +209,8 @@
             </div>
         </div>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -170,7 +170,7 @@ img{
 .location {
     display: flex;
     align-items: center;
-    font-size: 40px;
+    font-size: 35px;
     gap: 10px;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -230,8 +230,8 @@ nav .units button {
     width: 145px;
     height: 145px;
     position: absolute;
-    left: 750px;
-    top: 25px;
+    left: 752px;
+    top: 1px;
 }
 
 .main .cards {
@@ -313,4 +313,180 @@ nav .units button {
     font-size: 12px;
     margin-top: 20px;
     text-align: left;
+}
+
+.wearr{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.wearr .cardss{
+    width: 304px;
+    height: 423px;
+    border-radius: 20px;
+    color: #1a1a1a;
+    background-color: #fff;
+    padding: 10px 20px;
+    display: inline-block;
+    margin-left: 75px;
+    margin-bottom: 50px;
+}
+
+.cardss .box-heading{
+    color: #c2c2c2;
+}
+
+.cardss .image-box{
+    width: 264px;
+    height: 365px;
+}
+
+.gen{
+    position: absolute;
+    top: 79%;
+    left: 71%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+input[type="radio"]{
+    display: none;
+}
+
+label{
+    display: block;
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+label span{
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px 10px 10px;
+    border-radius: 31px;
+    transition: .25s ease;
+}
+
+label span:hover{
+    background-color: var(--primary-clr);
+}
+
+label span::before{
+    content: "";
+    background-color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+    transition: .25s ease;
+    box-shadow: inset 0 0 0 2px #000;
+}
+
+input[type="radio"]:checked + span::before{
+    box-shadow: inset 0 0 0 10px rgb(236, 103, 8);
+}
+
+.btn{
+    position: absolute;
+    top: 83%;
+    left: 71%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.rndm{
+    background: none;
+    border: 2px solid #000000;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    min-width: 200px;
+    margin: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.4s linear;
+}
+
+.rndm:hover {
+    color: #FFF;
+}
+
+.rndm::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-clr);
+    z-index: -1;
+    transition: transform 0.5s;
+    transform-origin: 0 0;
+    transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+}
+
+.rndm::before {
+    transform: scaleX(0);
+}
+
+.rndm:hover::before {
+    transform: scaleX(1);
+}
+
+.buy-button{
+    position: absolute;
+    top: 87%;
+    left: 71%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.buy{
+    background: none;
+    border: 2px solid #000000;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    min-width: 200px;
+    margin: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.4s linear;
+}
+
+.buy:hover {
+    color: #FFF;
+}
+
+.buy::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(236, 103, 8);
+    z-index: -1;
+    transition: transform 0.5s;
+    transform-origin: 0 0;
+    transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+}
+
+.buy::before {
+    transform: scaleY(0);
+}
+
+.buy:hover::before {
+    transform: scaleY(1);
+}
+
+.buy-inf .price{
+    position: absolute;
+    top: 90%;
+    left: 71%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
