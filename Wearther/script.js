@@ -27,11 +27,21 @@ const temp = document.getElementById("temp"),
     searchForm = document.querySelector("#search"),
     search = document.querySelector("#query"),
     highlights = document.querySelector(".highlights"),
-    form = document.querySelector('form');
+    headImg = document.querySelector("#head"),
+    acsImg = document.querySelector("#accessory"),
+    jacketImg = document.querySelector("#jacket"),
+    topImg = document.querySelector("#top"),
+    handImg = document.querySelector("#hand"),
+    bottomImg = document.querySelector("#bottom"),
+    footImg = document.querySelector("#foot"),
+    changeCombineBtn = document.querySelector('.rndm'),
+    price = document.querySelector(".price h4"),
+    buyBtn = document.querySelector(".buy");
 
 let currentCity = "";
 let currentUnit = "metric";
 let hourlyorWeek = "Week";
+let urlList = [];
 
 //Update date time
 function getDateTime(){
@@ -136,21 +146,58 @@ async function getWeatherData(city, unit, hourlyorWeek) {
     //});
 }
 
-async function getClothes(feelslikestatus, gender) {
+async function getClothes() {
 
-    await fetch(`http://localhost:8080/clothes/${feelslikestatus}/${gender}`,
+    headImg.src="", acsImg.src="", jacketImg.src="", topImg.src="", handImg.src="", bottomImg.src="", footImg.src="";
+    //console.log(feelsLikeStatus.innerHTML);
+    genderRadio = document.querySelector('input[name="gender"]:checked');
+    console.log(genderRadio.value);
+
+    await fetch(`http://localhost:8080/clothes/${feelsLikeStatus.innerHTML}/${genderRadio.value}`,
         {
             method: "GET",
     }
     )
     .then((response) => response.json())
     .then((data)  => {
-
         console.log(data);
-    
-        return data;
-        
+        let sum = 0;
+        for(let i=0;i<data.length;i++){
+            if(data[i].bodyPart == "HEAD"){
+                headImg = data[i].img;
+                
+            }else if(data[i].bodyPart == "ACCESSORY"){
+                acsImg.src = data[i].img;
+
+            }else if(data[i].bodyPart == "JACKET"){
+                jacketImg.src = data[i].img;
+
+            }else if(data[i].bodyPart == "TOP"){
+                topImg.src = data[i].img;
+
+            }else if(data[i].bodyPart == "HAND"){
+                handImg.src = data[i].img;
+                
+            }else if(data[i].bodyPart == "BOTTOM"){
+                bottomImg.src = data[i].img;
+                
+            }else if(data[i].bodyPart == "FOOT"){
+                footImg.src = data[i].img;
+                
+            }
+            
+            urlList[i] = data[i].url;
+            sum += data[i].price;
+        }
+
+        price.innerHTML = "Total = "+parseInt(sum)+"₺";
     })
+}
+
+function openAllUrlsNewTab(){
+    for(let i=0;i<urlList.length;i++){
+        window.open(urlList[i], "_clothes"+i);
+    }
 }
 
 //Function celciusToFahrenheit
@@ -431,103 +478,7 @@ function updateWearTab(data){
     weatherCards.innerHTML = "";
     wearCards.style.display = "block";
     highlights.style.display = "none";
-
-    /*let numCards = 7;
-    
-    
-    let card = document.createElement("div");
-    card.classList.add("cards");
-        
-    card.innerHTML = `
-    <div class="wearr" id="wear-cards">
-                <div class="cardss">
-                    <div class="head-card">
-                        <h4 class="box-heading">Head</h4>
-                        <div class="image-box">
-                            <img src="${data}" alt="" />
-                        </div>
-                    </div>
-                </div>
-                <div class="cardss">
-                    <div class="acs-card">
-                        <h4 class="box-heading">Accessory</h4>
-                        <div class="image-box">
-                            <img src="${data}" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="cardss">
-                    <div class="jacket-card">
-                        <h4 class="box-heading">Jacket</h4>
-                        <div class="image-box">
-                            <img src="${data}" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="cardss">
-                    <div class="top-card">
-                        <h4 class="box-heading">Top</h4>
-                        <div class="image-box">
-                            <img src="${data}" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="cardss">
-                    <div class="hand-card">
-                        <h4 class="box-heading">Hand</h4>
-                        <div class="image-box">
-                            <img src="${data}" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="cardss">
-                    <div class="bottom-card">
-                        <h4 class="box-heading">Bottom</h4>
-                        <div class="image-box">
-                            <img src="${data}" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="cardss">
-                    <div class="foot-card">
-                        <h4 class="box-heading">Foot</h4>
-                        <div class="image-box">
-                            <img src="${data}" alt="">
-                        </div>
-                    </div>
-                </div>
-                <form>
-                    <label>
-                        <input type="radio" name="gender" value="male" checked> Male
-                    </label>
-                    <br>
-                    <label>
-                        <input type="radio" name="gender" value="female"> Female
-                    </label>
-                    <br>
-                </form>                              
-                <div class="btn">
-                    <button class="rndm" onclick="getClothes('Hot','Male')">Change Combine</button>
-                </div>
-                <div class="buy-inf">
-                    <div class="buy-button">
-                        <button class="buy" onclick="openAllUrlsNewTab(data)">Buy Combine</button>
-                    </div>
-                    <div class="price">
-                        <h4>0TL</h4>
-                    </div>
-                </div>
-            </div>
-        `;
-    wearCards.appendChild(card);*/
 }
-
-
-form.addEventListener('change', (event) => {
-    const gender = event.target.value;
-    console.log(`Selected gender: ${gender}`);
-});
-
 
 fahrenheitBtn.addEventListener("click", () => {
     changeUnit("us");
