@@ -85,7 +85,7 @@
                     <div class="head-card">
                         <h4 class="box-heading">Head</h4>
                         <div class="image-box">
-                            <img src="${data}" alt="" />
+                            <img id="head" src="" alt="" />
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                     <div class="acs-card">
                         <h4 class="box-heading">Accessory</h4>
                         <div class="image-box">
-                            <img src="${data}" alt="">
+                            <img id="accessory" src="" alt="">
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                     <div class="jacket-card">
                         <h4 class="box-heading">Jacket</h4>
                         <div class="image-box">
-                            <img src="${data}" alt="">
+                            <img id="jacket" src="" alt="">
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                     <div class="top-card">
                         <h4 class="box-heading">Top</h4>
                         <div class="image-box">
-                            <img src="${data}" alt="">
+                            <img id="top" src="" alt="">
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                     <div class="hand-card">
                         <h4 class="box-heading">Hand</h4>
                         <div class="image-box">
-                            <img src="${data}" alt="">
+                            <img id="hand" src="" alt="">
                         </div>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                     <div class="bottom-card">
                         <h4 class="box-heading">Bottom</h4>
                         <div class="image-box">
-                            <img src="${data}" alt="">
+                            <img id="bottom" src="" alt="">
                         </div>
                     </div>
                 </div>
@@ -133,27 +133,29 @@
                     <div class="foot-card">
                         <h4 class="box-heading">Foot</h4>
                         <div class="image-box">
-                            <img src="${data}" alt="">
+                            <img id="foot" src="" alt="">
                         </div>
                     </div>
                 </div>
                 <div class="gen">
-                    <label>
-                        <input type="radio" name="gender" value="male" checked>
-                        <span>Male</span>
-                    </label>
-                    <label>
-                        <input type="radio" name="gender" value="female">
-                        <span>Female</span>
-                    </label>
+                    <form name="gender-form">
+                        <label>
+                            <input type="radio" name="gender" value="Male" checked>
+                            <span>Male</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="Female">
+                            <span>Female</span>
+                        </label>
+                    </form>
                     <br>
                 </div>                              
                 <div class="btn">
-                    <button class="rndm" onclick="getClothes('Hot','Male')">Change Combine</button>
+                    <button class="rndm" onclick="getClothes()">Change Combine</button>
                 </div>
                 <div class="buy-inf">
                     <div class="buy-button">
-                        <button class="buy" onclick="openAllUrlsNewTab(data)">Buy Combine</button>
+                        <button class="buy" onclick="openAllUrlsNewTab()">Buy Combine</button>
                     </div>
                     <div class="price">
                         <h4>Total = 0TL</h4>
